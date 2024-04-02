@@ -1,20 +1,26 @@
 name: Build and Test App
-on: 
-  push: 
-   branches: [ main ]
+on:
+  push:
+    branches:
+      - master
   pull_request:
-   branches: [ main ]
+    branches:
+      - master
 jobs:
- build:
-  runs_on: ubuntu-latest
-  steps:
-  - uses: actions/checkout@v2
-  - name: Login to DockerHub
-    id: login
-    run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
-  - name: Build the Docker image
-    id: build
-    run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USER }}/mdo-frontend:$(git rev-parse --short "$GITHUB_SHA")
-  - name: Push the docker image
-    id: push
-    run: docker push ${{ secret.DOCKER_USER }}/mdo-frontend:$(git rev-parse --short "$GITHUB_SHA")
+  build:
+    runs_on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login to DockerHub
+        id: login
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD
+          }}
+      - name: Build the Docker image
+        id: build
+        run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USER
+          }}/mdo-frontend:$(git rev-parse --short "$GITHUB_SHA")
+      - name: Push the docker image
+        id: push
+        run: docker push ${{ secret.DOCKER_USER }}/mdo-frontend:$(git rev-parse --short
+          "$GITHUB_SHA")
+
