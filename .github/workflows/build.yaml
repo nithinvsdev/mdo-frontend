@@ -21,6 +21,6 @@ jobs:
           }}/mdo-frontend:$(git rev-parse --short "$GITHUB_SHA")
       - name: Push the docker image
         id: push
-        run: docker push ${{ secret.DOCKER_USER }}/mdo-frontend:$(git rev-parse --short
+        run: docker push ${{ secrets.DOCKER_USER }}/mdo-frontend:$(git rev-parse --short
           "$GITHUB_SHA")
 
